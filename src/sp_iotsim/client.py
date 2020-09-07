@@ -1,6 +1,7 @@
 import websockets
 import zlib
 from pathlib import Path
+import os
 
 
 async def main(port: int, addr: str, max_packets: int, log_file: Path):
@@ -26,6 +27,7 @@ async def main(port: int, addr: str, max_packets: int, log_file: Path):
     uri = f"ws://{addr}:{port}"
 
     async with websockets.connect(uri) as websocket:
+        open("data.txt", "w").close()
         qb = await websocket.recv()
         if isinstance(qb, bytes):
             print(zlib.decompress(qb).decode("utf8"))
@@ -38,3 +40,7 @@ async def main(port: int, addr: str, max_packets: int, log_file: Path):
                 pass
                 # print(f"{i} total messages received")
             print(data)
+            f = open("data.txt", "a")
+            f.write(data)
+            f.close()
+

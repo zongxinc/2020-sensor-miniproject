@@ -14,6 +14,8 @@ Naturally, the server ws_server.py must be started before this client attempts t
 
 import argparse
 import asyncio
+from pathlib import Path
+
 
 from sp_iotsim.client import main
 
@@ -35,3 +37,4 @@ if __name__ == "__main__":
         asyncio.run(main(P.port, P.host, P.max_packets, P.log))
     except KeyboardInterrupt:
         print(P.log)
+
