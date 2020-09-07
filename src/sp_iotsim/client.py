@@ -42,5 +42,6 @@ async def main(port: int, addr: str, max_packets: int, log_file: Path):
             print(data)
             f = open("data.txt", "a")
             f.write(data)
+            f.write('\n')
             f.close()
 
