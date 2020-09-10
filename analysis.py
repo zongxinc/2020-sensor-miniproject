@@ -31,6 +31,7 @@ def main():
 	print("Temperature Median: ", tempData.median())
 	print("Temperature Variance: ", tempData.var())
 	ax = tempData.plot.kde()
+	plt.xlabel("Temperature (in Celsius)")
 	plt.savefig("images/temp.png")
 	plt.clf()
 
@@ -38,11 +39,13 @@ def main():
 	print("Occupancy Median: ", occupData.median())
 	print("Occupancy Variance: ", occupData.var())
 	ax = occupData.plot.kde()
+	plt.xlabel("Occupancy")
 	plt.savefig("images/occupancy.png")
 	plt.clf()
 	
 	coData = pd.Series(co)
 	ax = coData.plot.kde()
+	plt.xlabel("CO2 Level")
 	plt.savefig("images/co2.png")
 	plt.clf()
 
@@ -50,6 +53,7 @@ def main():
 	print("Time Median: ", timeData.mean())
 	print("Time Variance: ", timeData.var())
 	ax = timeData.plot.kde()
+	plt.xlabel("Time (seconds)")
 	plt.savefig("images/timeInterval.png")
 
 if __name__ == "__main__":
