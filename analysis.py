@@ -20,6 +20,8 @@ def main():
 				prevTime = time;
 				time = datetime.fromisoformat(r[room]["time"])
 				timeInterval.append((time-prevTime).total_seconds())
+			if r[room]["temperature"][0] > 35:
+				print("temperature anomalies: %s in %s \n" %(r[room]["temperature"][0], room))
 			temperature.append(r[room]["temperature"][0])
 			occupancy.append(r[room]["occupancy"][0])
 			co.append(r[room]["co2"][0])
