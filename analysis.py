@@ -20,11 +20,10 @@ def main():
 				prevTime = time;
 				time = datetime.fromisoformat(r[room]["time"])
 				timeInterval.append((time-prevTime).total_seconds())
-			if r[room]["temperature"][0] > 35:
-				print("temperature anomalies: %s in %s \n" %(r[room]["temperature"][0], room))
 			temperature.append(r[room]["temperature"][0])
 			occupancy.append(r[room]["occupancy"][0])
 			co.append(r[room]["co2"][0])
+		f.close()
 			
 
 	tempData = pd.Series(temperature)
@@ -34,6 +33,14 @@ def main():
 	plt.xlabel("Temperature (in Celsius)")
 	plt.savefig("images/temp.png")
 	plt.clf()
+
+	with open('data.txt', "r") as f:
+		for line in f:
+			r = json.loads(line)
+			room = list(r.keys())[0]
+			if r[room]["temperature"][0] > tempData.median() + tempData.var():
+				print("temperature anomalies: %s in %s \n" %(r[room]["temperature"][0], room))
+
 
 	occupData = pd.Series(occupancy)
 	print("Occupancy Median: ", occupData.median())
