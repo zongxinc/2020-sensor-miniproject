@@ -1,3 +1,11 @@
+# McKenna Damschroder and Zongxin Cui - 09/2020
+#
+# All code written for the sensor mini-project is contained in this
+# file except for Task 1. Code for task 1 was added directly to client.py.
+# This file includes the analysis code for finding the median/variance of
+# the sensor data and graphing the probability distributions as well as 
+# an algorithm for detecting anomalies in the temperature data. 
+
 import json
 from datetime import datetime
 import pandas as pd
@@ -9,6 +17,7 @@ def main():
 	co = []
 	timeInterval = []
 
+	# Reading in sensor data
 	time = -1;
 	with open('data.txt', "r") as f:
 		for line in f:
@@ -26,6 +35,7 @@ def main():
 		f.close()
 			
 
+	# Using Pandas series to find median, variance, and probabiltiy distribution for each set of data
 	tempData = pd.Series(temperature)
 	print("Temperature Median: ", tempData.median())
 	print("Temperature Variance: ", tempData.var())
@@ -33,14 +43,6 @@ def main():
 	plt.xlabel("Temperature (in Celsius)")
 	plt.savefig("images/temp.png")
 	plt.clf()
-
-	with open('data.txt', "r") as f:
-		for line in f:
-			r = json.loads(line)
-			room = list(r.keys())[0]
-			if r[room]["temperature"][0] > tempData.median() + tempData.var():
-				print("temperature anomalies: %s in %s \n" %(r[room]["temperature"][0], room))
-
 
 	occupData = pd.Series(occupancy)
 	print("Occupancy Median: ", occupData.median())
@@ -62,6 +64,22 @@ def main():
 	ax = timeData.plot.kde()
 	plt.xlabel("Time (seconds)")
 	plt.savefig("images/timeInterval.png")
+
+	# Detecting temperature anomalies and printing anomalies to file
+	o = open("anomalies.txt", "w")
+	print("\nTemperature anomalies: ")
+	with open('data.txt', "r") as f:
+		for line in f:
+			r = json.loads(line)
+			room = list(r.keys())[0]
+			if (
+				r[room]["temperature"][0] > tempData.median() + 2** tempData.std()
+				or r[room]["temperature"][0] < tempData.median() - 2**tempData.std()
+			):
+				print("%s in %s at %s" %(r[room]["temperature"][0], room, r[room]["time"]))
+				o.write("%s in %s at %s\n" %(r[room]["temperature"][0], room, r[room]["time"]))
+		f.close()
+		o.close()
 
 if __name__ == "__main__":
 	main()

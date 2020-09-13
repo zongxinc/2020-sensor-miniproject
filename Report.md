@@ -9,23 +9,36 @@ What is the greeting string issued by the server to the client upon first connec
 Task 2:
 
 What are the median and variance observed from the temperature data? 
- - Median: 22.976429549397288
- - Variance: 1019642.1939205542
+ - Median: 23.005916771008064
+ - Variance: 13.431942756792905
 
 What are the median and variance observed from the occupancy data?
  - Median: 5.0
- - Variance: 64.87875984503773
+ - Variance: 63.6028364871368
 
 Plot the probability distribution function for each sensor type.
-NEED TO ADD (images are in images folder) Note: temperature has one called tempNoOutlier.png because it has an extreme outlier (38870.0176590916) that made the graph irrelevant. So the no outlier graph cuts off values at 100. I believe this cuts off that extreme outlier and one that is around 136(?).
+NEED TO ADD (images are in images folder)
 
 
 What is the mean and variance of the time interval of the sensor readings?
- - Mean: 0.9693993684922244
- - Variance: 0.86833733304211
+ - Mean: 1.0368927617675312
+ - Variance: 1.0847226416405662
  
 Plot the probability distribution function for the time intervals.
 NEED TO ADD (image in images folder)
 
 Does it mimic a well-known distribution for connection intervals in large systems?
 TO DO
+
+Task 3:
+We implemented an algorithm that checks if a temperature data point is further than 2 standard deviations away from the mean. The anomalies detected in our data set using this algorithm can be found in anomalies.txt.
+See anomalies.txt for list of detected anomalies.
+Does a persistent change in temperature	always indicate a failed sensor?
+What are possible bounds on temperature for each room type?
+
+Task 4:
+How is this simulation reflective of the real world?
+How is this simulation deficient? What factors does it fail to account for?
+How is the difficulty of initially using this Python websockets library as compared to a compiled language e.g. C++ websockets?
+Would it be better to have the server poll the sensors, or the sensors reach out to the server when they have data?
+
