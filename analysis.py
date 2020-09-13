@@ -29,32 +29,33 @@ def main():
 				prevTime = time;
 				time = datetime.fromisoformat(r[room]["time"])
 				timeInterval.append((time-prevTime).total_seconds())
-			temperature.append(r[room]["temperature"][0])
-			occupancy.append(r[room]["occupancy"][0])
-			co.append(r[room]["co2"][0])
+			if room == "office":
+				temperature.append(r[room]["temperature"][0])
+				occupancy.append(r[room]["occupancy"][0])
+				co.append(r[room]["co2"][0])
 		f.close()
 			
 
 	# Using Pandas series to find median, variance, and probabiltiy distribution for each set of data
 	tempData = pd.Series(temperature)
-	print("Temperature Median: ", tempData.median())
-	print("Temperature Variance: ", tempData.var())
+	print("Temperature Median for Office: ", tempData.median())
+	print("Temperature Variance for Office: ", tempData.var())
 	ax = tempData.plot.kde()
-	plt.xlabel("Temperature (in Celsius)")
+	plt.xlabel("Temperature in Office (in Celsius)")
 	plt.savefig("images/temp.png")
 	plt.clf()
 
 	occupData = pd.Series(occupancy)
-	print("Occupancy Median: ", occupData.median())
-	print("Occupancy Variance: ", occupData.var())
+	print("Occupancy Median for Office: ", occupData.median())
+	print("Occupancy Variance for Office: ", occupData.var())
 	ax = occupData.plot.kde()
-	plt.xlabel("Occupancy")
+	plt.xlabel("Occupancy in Office")
 	plt.savefig("images/occupancy.png")
 	plt.clf()
 	
 	coData = pd.Series(co)
 	ax = coData.plot.kde()
-	plt.xlabel("CO2 Level")
+	plt.xlabel("CO2 Level in Office")
 	plt.savefig("images/co2.png")
 	plt.clf()
 
@@ -68,18 +69,33 @@ def main():
 	# Detecting temperature anomalies and printing anomalies to file
 	o = open("anomalies.txt", "w")
 	print("\nTemperature anomalies: ")
+	count = 0;
+	goodTempData = []
 	with open('data.txt', "r") as f:
 		for line in f:
 			r = json.loads(line)
 			room = list(r.keys())[0]
-			if (
-				r[room]["temperature"][0] > tempData.median() + 2** tempData.std()
-				or r[room]["temperature"][0] < tempData.median() - 2**tempData.std()
-			):
-				print("%s in %s at %s" %(r[room]["temperature"][0], room, r[room]["time"]))
-				o.write("%s in %s at %s\n" %(r[room]["temperature"][0], room, r[room]["time"]))
+			if room == "office": 
+				if (
+					r[room]["temperature"][0] > tempData.median() + 2** tempData.std()
+					or r[room]["temperature"][0] < tempData.median() - 2**tempData.std()
+				):
+					print("%s in %s at %s" %(r[room]["temperature"][0], room, r[room]["time"]))
+					o.write("%s in %s at %s\n" %(r[room]["temperature"][0], room, r[room]["time"]))
+					count+=1
+				else:
+					goodTempData.append(r[room]["temperature"][0])
 		f.close()
 		o.close()
+
+	# Calculate percentage of bad points
+	print("\nPercentage of 'bad' points: ", float(count/tempData.size))
+		
+	# Calculate median and variance of data without bad points
+	print("\nTemperature with bad points removed: ")
+	newData=pd.Series(goodTempData)
+	print("Median: ",newData.median())
+	print("Variance: ",newData.var())
 
 if __name__ == "__main__":
 	main()

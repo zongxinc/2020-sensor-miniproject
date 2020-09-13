@@ -9,12 +9,13 @@ What is the greeting string issued by the server to the client upon first connec
 Task 2:
 
 What are the median and variance observed from the temperature data? 
- - Median: 23.005916771008064
- - Variance: 13.431942756792905
+In the office:
+ - Median: 23.018693542662476
+ - Variance: 9.790063333923133
 
 What are the median and variance observed from the occupancy data?
- - Median: 5.0
- - Variance: 63.6028364871368
+ - Median: 2.0
+ - Variance: 2.2173377088504274
 
 Plot the probability distribution function for each sensor type.
 NEED TO ADD (images are in images folder)
@@ -32,7 +33,15 @@ TO DO
 
 Task 3:
 We implemented an algorithm that checks if a temperature data point is further than 2 standard deviations away from the mean. The anomalies detected in our data set using this algorithm can be found in anomalies.txt.
+
 See anomalies.txt for list of detected anomalies.
+
+The percentage of all points that are bad points is 0.01729106628242075
+
+The new median and variance with the bad points removed are:
+- Median: 23.019330104257943
+- Variance: 1.0823557009382205
+
 Does a persistent change in temperature	always indicate a failed sensor?
 What are possible bounds on temperature for each room type?
 
