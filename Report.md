@@ -14,22 +14,31 @@ What is the greeting string issued by the server to the client upon first connec
 
 ### Task 1:
 
-In this task, code was added to [src/sp_iotsim/client.py](https://github.com/zongxinc/2020-sensor-miniproject/blob/main/src/sp_iotsim/client.py) to save the JSON sensor data to a text file as it comes in. The resulting text file is named [data.tx](https://github.com/zongxinc/2020-sensor-miniproject/blob/main/data.txt).
+In this task, code was added to [src/sp_iotsim/client.py](https://github.com/zongxinc/2020-sensor-miniproject/blob/main/src/sp_iotsim/client.py) to save the JSON sensor data to a text file as it comes in. The resulting text file is named [data.txt](https://github.com/zongxinc/2020-sensor-miniproject/blob/main/data.txt).
 
 ### Task 2:
 
-What are the median and variance observed from the temperature data? 
-In the office:
+In this task, the Pandas library was used to do numerical analysis on the data set from Task 1. All analysis code can be found in [analysis.py](https://github.com/zongxinc/2020-sensor-miniproject/blob/main/analysis.py). The first three questions answered below involved analyzing sensor data for a specific room. The room that we chose to examine is the office.
+
+1. What are the median and variance observed from the temperature data? 
+
  - Median: 23.018693542662476
  - Variance: 9.790063333923133
 
-What are the median and variance observed from the occupancy data?
+2. What are the median and variance observed from the occupancy data?
+
  - Median: 2.0
  - Variance: 2.2173377088504274
 
-Plot the probability distribution function for each sensor type.
-NEED TO ADD (images are in images folder)
+3. Plot the probability density functions for each sensor type.
 
+Below are the graphed probability density functions. One again, this is solely for data taken from the office sensors. The plots below were created using Pandas's kde() function. This function generates Kernel Density Estimate (KDE) plots using Gaussian kernels. A KDE is way, in statistics, to estimate the probability density function. We also have created histogram plots for each data set and they can be found in the [images](https://github.com/zongxinc/2020-sensor-miniproject/tree/main/images) folder. 
+
+<img src="./images/temp.png" alt="Temperature PDF" width="75%" height="75%" />
+
+<img src="./images/occupancy.png" alt="Occupancy PDF" width="75%" height="75%" />
+
+<img src="./images/co2.png" alt="CO2 PDF" width="75%" height="75%" />
 
 What is the mean and variance of the time interval of the sensor readings?
  - Mean: 1.0368927617675312
