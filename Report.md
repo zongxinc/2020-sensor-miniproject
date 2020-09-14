@@ -1,12 +1,22 @@
+# Sensor Mini-Project 
+
+Authors: McKenna Damschroder and Zongxin Cui
+
+Date: 9/14/2020
+
 ## Responses
 
-Task 0:
+### Task 0:
 
 What is the greeting string issued by the server to the client upon first connecting?
 
  - "ECE Senior Capstone IoT simulator""
 
-Task 2:
+### Task 1:
+
+In this task, code was added to [src/sp_iotsim/client.py](https://github.com/zongxinc/2020-sensor-miniproject/blob/main/src/sp_iotsim/client.py) to save the JSON sensor data to a text file as it comes in. The resulting text file is named [data.tx](https://github.com/zongxinc/2020-sensor-miniproject/blob/main/data.txt).
+
+### Task 2:
 
 What are the median and variance observed from the temperature data? 
 In the office:
