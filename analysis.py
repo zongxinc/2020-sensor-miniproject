@@ -89,7 +89,7 @@ def main():
 		o.close()
 
 	# Calculate percentage of bad points
-	print("\nPercentage of 'bad' points: ", float(count/tempData.size))
+	print("\nFraction of 'bad' points: ", float(count/tempData.size))
 		
 	# Calculate median and variance of data without bad points
 	print("\nTemperature with bad points removed: ")
